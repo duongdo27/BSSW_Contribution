@@ -29,7 +29,7 @@ def process_value(values):
             break
     folder = folders[values[21]]
     name = values[4] + values[27]
-    fo = open("{}/{}".format(folder, name), "w")
+    fo = open("{}/{}.md".format(folder, name), "w")
     for i in range(22, 27):
         fo.write(values[i])
     fo.write("\n\n<!---")
