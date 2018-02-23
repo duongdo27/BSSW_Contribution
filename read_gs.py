@@ -19,7 +19,7 @@ def get_google_client():
     return gspread.authorize(creds)
 
 
-def process_value(values, name):
+def process_value(values):
     folders = {"Original Experience": "Articles", "Curated Links": "CuratedContent",
                "Event": "Events", "Blog Article": "Site"}
     topic = ""
@@ -28,13 +28,16 @@ def process_value(values, name):
             topic = values[i]
             break
     folder = folders[values[21]]
+    name = values[4] + values[27]
     fo = open("{}/{}".format(folder, name), "w")
     for i in range(22, 27):
         fo.write(values[i])
     fo.write("\n\n<!---")
     fo.write("\nCategories: {}".format(values[14]))
     fo.write("\nTopic: {}".format(topic))
+    fo.write("\nLevel: 2")
     fo.write("\nPrerequisites: default")
+    fo.write("\nAggregate: none")
     fo.write("\n--->")
 
 
@@ -55,7 +58,7 @@ def run():
         if not values[0]:
             break
 
-        process_value(values, "foo{}.md".format(row))
+        process_value(values)
 
 
 if __name__ == '__main__':
