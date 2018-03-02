@@ -58,7 +58,7 @@ def write_to_file(topics):
         for topic in sorted(topics.keys()):
 
             # Write header for table
-            f.write("\n"+topic+"\n\n")
+            f.write("\n### "+topic+"\n\n")
             f.write("Project | POC | Response\n")
             f.write("--- | --- | ---\n")
 
