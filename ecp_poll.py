@@ -55,6 +55,7 @@ def get_name(values):
 # write content to file
 def write_to_file(topics):
     with open("ecp.md", "w") as f:
+        f.write("## 2.3 Exascale Computing Project\n\n")
         for topic in sorted(topics.keys()):
 
             # Write header for table
@@ -72,7 +73,7 @@ def write_to_file(topics):
 
             # write the list to file
             for x in ls:
-                f.write(x[0] + " | " + x[1] + " | " + "Response" + "\n")
+                f.write("**" + x[0] + "**" + " | " + x[1] + " | " + "Response" + "\n")
 
 
 def run():
