@@ -59,7 +59,7 @@ def write_to_file(topics):
         for topic in sorted(topics.keys()):
 
             # Write header for table
-            f.write("\n### "+topic+"\n\n")
+            f.write("\n\n### "+topic+"\n\n")
             f.write("Project | POC | Response\n")
             f.write("--- | --- | ---\n")
 
@@ -73,7 +73,7 @@ def write_to_file(topics):
 
             # write the list to file
             for x in ls:
-                f.write("**" + x[0] + "**" + " | " + x[1] + " | " + "Response" + "\n")
+                f.write(x[0] + " | " + x[1] + " | " + "Response" + "\n")
 
 
 def run():
