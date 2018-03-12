@@ -56,16 +56,17 @@ def write_to_file(topics):
             ls = []
             # add projects, spotlight, and progress report to list
             for values in topics[topic]:
-                ls.append([get_project(values), values[SPOTLIGHT_REPORT], values[PROGRESS_REPORT]])
+                ls.append([get_project(values), values[SPOTLIGHT_REPORT], values[PROGRESS_REPORT], values[HAVE_SPOTLIGHT]])
 
             # sort the list by project orders
             ls = sorted(ls, key=lambda x: x[0])
 
             # write the list to file
-            for project, spotlight, progress_report in ls:
+            for project, spotlight, progress_report, have_spotlight in ls:
                 # write the spot light if any
                 if spotlight:
-                    f.write("Spotlight: {}\n".format(spotlight))
+                    f.write("Spotlight: {}\n".format(have_spotlight))
+                    f.write("{}\n\n".format(spotlight))
 
                 # write project
                 f.write("#### {}\n".format(project))
