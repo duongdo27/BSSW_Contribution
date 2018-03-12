@@ -69,7 +69,7 @@ def write_to_file(topics):
             for project, spotlight, progress_report in ls:
                 if spotlight:
                     f.write("Spotlight: {}\n".format(spotlight))
-                f.write("{}\n".format(project))
+                f.write("#### {}\n".format(project))
                 if progress_report:
                     f.write("{}\n\n".format(progress_report))
                 else:

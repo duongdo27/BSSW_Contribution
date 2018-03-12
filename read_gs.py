@@ -6,7 +6,7 @@ import gspread
 from oauth2client.client import SignedJwtAssertionCredentials
 import json
 import os
-from datetime import datetime, date
+from datetime import datetime
 
 # Find the correct folder
 FOLDER_LOOKUP = {
@@ -62,7 +62,7 @@ def generate_filepath(values):
     if os.path.isfile(filepath):
         suffix = 1
         while True:
-            filepath = "{}/{}_{}_{}.md".format(folder, PREFIX, name, suffix)
+            filepath = "{}/{}_{}{}.md".format(folder, PREFIX, name, suffix)
             if not os.path.isfile(filepath):
                 return filepath
             suffix += 1
@@ -71,8 +71,11 @@ def generate_filepath(values):
 
 # convert date the the correct format
 def convert_date(date_str1, date_str2):
+    # convert string date to date
     date1 = datetime.strptime(date_str1, '%m/%d/%Y')
     date2 = datetime.strptime(date_str2, '%m/%d/%Y')
+
+    # convert date bback to string in the right format
     if date1.year == date2.year:
         return "{} - {}".format(datetime.strftime(date1, "%B %d"), datetime.strftime(date2, "%B %d, %Y"))
     return "{} - {}".format(datetime.strftime(date1, "%B %d, %Y"), datetime.strftime(date2, "%B %d, %Y"))
@@ -96,6 +99,7 @@ def get_topic(values):
 
 # write content to file
 def write_file(values, fo):
+    # check if the event
     if values[EVENT_LOCATION] != "":
         fo.write("# {}\n\n".format(values[EVENT_TITLE]))
         fo.write("- Dates: " + convert_date(values[EVENT_START], values[EVENT_END]))
@@ -103,6 +107,8 @@ def write_file(values, fo):
         fo.write("- Event Website: {}\n\n".format(values[EVENT_WEBSITE]))
         fo.write(" {}\n\n".format(values[EVENT_SHORT_DESC]))
         fo.write("**Description**: {}\n".format(values[EVENT_LONG_DESC]))
+
+    # for blog, article and curated links
     else:
         for i in CONTENTS:
             if values[i] != "":
