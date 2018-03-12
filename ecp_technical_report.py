@@ -8,8 +8,8 @@ import json
 
 # Below are the indexes of necessary information in the Google Sheet. Need to change if needed
 
-TECH_AREA = 4 # Column E in the spreadsheet (not sure if 5 is the right number, so fix if not)
-PROJECT = range(5, 10)       # will be one of the columns F through J in the spreadsheet
+TECH_AREA = 4  # Column E
+PROJECT = range(5, 10)  # will be one of the columns F through J in the spreadsheet
 HAVE_SPOTLIGHT = 10  # column K
 SPOTLIGHT_REPORT = 11  # column L
 PROGRESS_REPORT = 12  # column M
@@ -45,20 +45,16 @@ def get_project(values):
     return ""
 
 
-#def get_name(values):
-#    return values[FIRST_NAME] + " " + values[LAST_NAME]
-
-
 # write content to file
 def write_to_file(topics):
     for topic in sorted(topics.keys()):
         filename = "{}.md".format(topic)
         with open(filename, "w") as f:
-            # Write header for table
+            # Write header for file
             f.write("### {}\n\n".format(topic))
 
             ls = []
-            # add subtopics and author name to list
+            # add projects, spotlight, and progress report to list
             for values in topics[topic]:
                 ls.append([get_project(values), values[SPOTLIGHT_REPORT], values[PROGRESS_REPORT]])
 
@@ -67,9 +63,14 @@ def write_to_file(topics):
 
             # write the list to file
             for project, spotlight, progress_report in ls:
+                # write the spot light if any
                 if spotlight:
                     f.write("Spotlight: {}\n".format(spotlight))
+
+                # write project
                 f.write("#### {}\n".format(project))
+
+                # write progress report
                 if progress_report:
                     f.write("{}\n\n".format(progress_report))
                 else:
